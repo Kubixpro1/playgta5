@@ -1,9 +1,9 @@
 {
-  "origin": "https://playgta5.com",
+  "origin": "https://fiveplay.lol",
   "build": "/b/8b0b5899ed",
   "version": "1791169379-5814",
-  "workers": 32,
-  "bandwidth_cap_bytes_s": 0,
+  "workers": 3,
+  "bandwidth_cap_bytes_s": 25165824,
   "tasks": [
     [
       "/b/8b0b5899ed/game.wasm",

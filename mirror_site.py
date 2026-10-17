@@ -8,7 +8,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parent
 SITE = ROOT / 'mirror' / 'playgta5.com'
 STATE = ROOT / 'snapshot'
-ORIGIN = 'https://playgta5.com'
+ORIGIN = 'https://fiveplay.lol'
 BUILD = '/b/8b0b5899ed'
 RATE = 24 * 1024 * 1024
 WORKERS = 3
