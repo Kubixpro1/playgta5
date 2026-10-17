@@ -20,6 +20,17 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Accept-Ranges', 'bytes')
         super().end_headers()
 
+    def do_GET(self):
+        # Accept the short URL that users may try after seeing a game.js error.
+        # The build files themselves live under their versioned directory.
+        if urlsplit(self.path).path == '/game.js':
+            self.send_response(302)
+            self.send_header('Location', '/b/8b0b5899ed/game.js')
+            self.send_header('Content-Length', '0')
+            self.end_headers()
+            return
+        super().do_GET()
+
     def send_head(self):
         if not self.headers.get('Range'):
             return super().send_head()
@@ -109,7 +120,9 @@ if __name__ == '__main__':
     args.add_argument('--port', type=int, default=8000)
     args.add_argument('--open', action='store_true', help='open the default browser after binding')
     options = args.parse_args()
-    server = ThreadingHTTPServer(('127.0.0.1', options.port), Handler)
+    # Bind all local interfaces so localhost works across IPv4/IPv6 resolution
+    # and Android browsers, while still serving only this device/LAN.
+    server = ThreadingHTTPServer(('', options.port), Handler)
     address = 'http://localhost:%d/' % server.server_port
     print('Local mirror: %s (Ctrl+C to stop)' % address, flush=True)
     if options.open:
